@@ -4,13 +4,14 @@ import { useState } from 'react';
 import CarMap from '../appCarMap/CarMap.tsx';
 
 interface Car {
-    car?: any;
-    pk: number;
-    name: string;
-    email: string;
-    document: string;
-    phone: string;
-    registrationDate: string;
+    Name: string;
+    Vin: string;
+    CarNumber: string;
+    Registration_Date: string;
+    photo: string;
+    longitude: string;
+    latitude: string;
+    Rented: boolean;
 }
 
 interface Props {

@@ -2,18 +2,18 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import ListCars from '../appListCars/ListCars';
 import axios from 'axios';
-// @ts-ignore
-import ModalCar from '../appModalCar/ModalCar.tsx';
-// @ts-ignore
-import { API_URL } from '../../index.tsx';
+import ModalCar from '../appModalCar/ModalCar';
 
 interface Car {
-    id: number;
-    name: string;
-    email: string;
-    document: string;
-    phone: string;
-    registrationDate: string;
+    pk: number;
+    Name: string;
+    Vin: string;
+    CarNumber: string;
+    Registration_Date: string;
+    photo: string;
+    longitude: string;
+    latitude: string;
+    Rented: boolean;
 }
 
 const Home: React.FC = () => {
@@ -24,7 +24,7 @@ const Home: React.FC = () => {
     }, []);
 
     const getCars = () => {
-        axios.get<Car[]>(API_URL)
+        axios.get<Car[]>('http://127.0.0.1:8000/')
             .then(response => setCars(response.data))
             .catch(error => console.error('Error fetching cars:', error));
     };
@@ -35,28 +35,8 @@ const Home: React.FC = () => {
 
     return (
         <div style={{ marginTop: '20px' }}>
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Document</th>
-                    <th>Phone</th>
-                    <th>registrationDate</th>
-                </tr>
-                </thead>
-                <tbody>
-                {cars.map(car => (
-                    <tr key={car.id}>
-                        <td>{car.name}</td>
-                        <td>{car.email}</td>
-                        <td>{car.document}</td>
-                        <td>{car.phone}</td>
-                        <td>{car.registrationDate}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+            <h2>List of Cars</h2>
+            <ListCars cars={cars} resetState={resetState} newCar={true} />
             <div>
                 <ModalCar create={true} resetState={resetState} newCar={true}  car={null}/>
             </div>
