@@ -15,7 +15,8 @@ const AppRemoveCar: React.FC<Props> = (props) => {
     };
 
     const deleteCar = () => {
-        axios.delete(`API_URL/${props.pk}`).then(() => {
+        console.log(props);
+        axios.delete(`http://127.0.0.1:8000/api/car/${props.pk}/`).then(() => {
             props.resetState();
             toggle();
         });
