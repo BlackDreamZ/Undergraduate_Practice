@@ -6,11 +6,14 @@ import PhotoModal from '../appPhotoModal/PhotoModal';
 
 interface Car {
     pk: number;
-    name: string;
-    email: string;
-    document: string;
-    phone: string;
-    registrationDate: string;
+    Name: string;
+    Vin: string;
+    CarNumber: string;
+    Registration_Date: string;
+    photo: string;
+    longitude: string;
+    latitude: string;
+    Rented: boolean;
 }
 
 interface Props {
@@ -24,33 +27,35 @@ const ListCars: FC<Props> = ({ cars, resetState, newCar }) => {
         <table>
             <thead>
             <tr>
+                <th>Number</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Document</th>
-                <th>Phone</th>
-                <th>Registration</th>
+                <th>Vin</th>
+                <th>Car Number</th>
+                <th>Registration Date</th>
                 <th>Photo</th>
-                <th></th>
+                <th>Available for rent</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {!cars || cars.length <= 0 ? (
                 <tr>
                     <td colSpan={6} align="center">
-                        <b>Пока ничего нет</b>
+                        <b>No cars available</b>
                     </td>
                 </tr>
             ) : (
-                cars.map((car) => (
-                    <tr key={car.pk}>
-                        <td>{car.name}</td>
-                        <td>{car.email}</td>
-                        <td>{car.document}</td>
-                        <td>{car.phone}</td>
-                        <td>{car.registrationDate}</td>
+                cars.map((car, index) => (
+                    <tr key={index++}>
+                        <td>{index++}</td>
+                        <td>{car.Name}</td>
+                        <td>{car.Vin}</td>
+                        <td>{car.CarNumber}</td>
+                        <td>{car.Registration_Date}</td>
                         <td>
                             <PhotoModal car={car} />
                         </td>
+                        <td>{car.Rented ? 'No' : 'Yes'}</td>
                         <td>
                             <ModalCar
                                 create={false}
@@ -60,7 +65,7 @@ const ListCars: FC<Props> = ({ cars, resetState, newCar }) => {
                             />
                             &nbsp;&nbsp;
                             <AppRemoveCar
-                                pk={car.pk}
+                                pk={index}
                                 resetState={resetState}
                             />
                         </td>

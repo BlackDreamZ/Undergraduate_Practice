@@ -5,14 +5,9 @@ import Header from "../appHeader/Header.tsx";
 // @ts-ignore
 import Home from "../appHome/Home.tsx";
 import React from 'react';
-
-const App: React.FC = () => {
-  return (
-      <Fragment>
-        <Header />
-        <Home />
-      </Fragment>
-  );
-}
-
+var App = function () {
+    return (React.createElement(Fragment, null,
+        React.createElement(Header, null),
+        React.createElement(Home, null)));
+};
 export default App;
