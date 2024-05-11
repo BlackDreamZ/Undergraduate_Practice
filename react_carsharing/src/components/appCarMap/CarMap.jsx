@@ -20,7 +20,7 @@ const handleRentClick = (car) => {
 const CarMap = ({ cars }) => {
 
     return (
-        <MapContainer style={{ height: '400px', width: '100%' }} zoom={16} center={[47.213945, 39.623114]}>
+        <MapContainer style={{ height: '400px', width: '100%', zIndex: 10 }} zoom={16} center={[47.213945, 39.623114]}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />

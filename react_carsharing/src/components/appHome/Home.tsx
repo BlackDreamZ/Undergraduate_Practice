@@ -35,7 +35,7 @@ const Home: React.FC = () => {
     };
 
     return (
-    <div style={{ marginTop: '20px' }}>
+    <div>
         <CarMap cars={cars}/>
             <h2>List of Cars</h2>
             <ListCars cars={cars} resetState={resetState} newCar={true} />
