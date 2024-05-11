@@ -4,7 +4,6 @@ import './index.css';
 // @ts-ignore
 import App from './components/app/App.tsx';
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const API_URL: string = "http://127.0.0.1:8000/";
 

@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-// @ts-ignore
-import CarMap from '../appCarMap/CarMap.tsx';
 
 interface Car {
     Name: string;
@@ -46,14 +44,6 @@ const ModalCar: React.FC<Props> = (props) => {
                                     {props.create ? 'Добавить автомобиль' : 'Редактировать автомобиль'}
                                 </h5>
                                 <button type="button" className="btn-close" onClick={toggle}></button>
-                            </div>
-                            <div className="modal-body">
-                                <CarMap
-                                    car={props.car ? props.car : []}
-                                    resetState={props.resetState}
-                                    toggle={toggle}
-                                    newCar={props.newCar}
-                                />
                             </div>
                         </div>
                     </div>

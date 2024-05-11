@@ -5,6 +5,8 @@ from .models import Car
 from .serializers import CarSerializer
 from rest_framework.permissions import AllowAny
 from rest_framework import status
+from django.middleware.csrf import get_token
+from django.http import JsonResponse
 
 class CarView(APIView):
     permission_classes = [AllowAny]
@@ -30,6 +32,15 @@ class CarView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+
+    def my_view(request):
+        response = JsonResponse({'message': 'Hello, world!'})
+        response['Access-Control-Allow-Origin'] = '*'  # Разрешить доступ с любого источника
+        response['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'  # Разрешить определенные методы
+        response['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization'  # Разрешить определенные заголовки
+        response['Access-Control-Allow-Credentials'] = 'true'  # Разрешить отправку куки (если необходимо)
+        response['X-CSRFToken'] = get_token(request)  # Установить CSRF-токен (если используется CSRF)
+        return response
 
 class CarDetailView(APIView):
 

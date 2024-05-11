@@ -47,7 +47,7 @@ const ListCars: FC<Props> = ({ cars, resetState, newCar }) => {
             ) : (
                 cars.map((car, index) => (
                     <tr key={index++}>
-                        <td>{++index}</td>
+                        <td>{index++}</td>
                         <td>{car.Name}</td>
                         <td>{car.Vin}</td>
                         <td>{car.CarNumber}</td>

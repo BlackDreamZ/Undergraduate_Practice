@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import Header from "../appHeader/Header.tsx";
 // @ts-ignore
 import Home from "../appHome/Home.tsx";
+import React from 'react';
 
 const App: React.FC = () => {
   return (
