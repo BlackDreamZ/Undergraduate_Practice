@@ -1,2 +1,3 @@
 node_modules
 react_carsharing/node_modules
+django_backend/backend_api/__pycache__/
