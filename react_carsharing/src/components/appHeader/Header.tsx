@@ -1,8 +1,27 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Header.scss';
 
 const Header: React.FC = () => {
+
+    const [pageTitle, setPageTitle] = useState("Аренда автомобилей");
+
+    useEffect(() => {
+        const pathName = window.location.pathname;
+        switch (pathName) {
+            case "/contacts":
+                setPageTitle("Контакты");
+                break;
+            case "/about":
+                setPageTitle("О компании");
+                break;
+            case "/login":
+                setPageTitle("Авторизация");
+                break;
+            default:
+                setPageTitle("Аренда автомобилей");
+        }
+    }, []);
 
     const PC_version = window.innerWidth > 1023;
 
@@ -16,7 +35,7 @@ const Header: React.FC = () => {
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
                     <div className="navbar-header">
-                        <h2 className="navbar-brand">Аренда автомобилей</h2>
+                        <h2 className="navbar-brand">{pageTitle}</h2>
                         <button
                             className={`navbar-toggler ${menuOpen ? 'collapsed' : ''}`}
                             onClick={toggleMenu}
