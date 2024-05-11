@@ -17,7 +17,7 @@ var Home = function () {
     var resetState = function () {
         getCars();
     };
-    return (React.createElement("div", { style: { marginTop: '20px' } },
+    return (React.createElement("div", null,
         React.createElement(CarMap, { cars: cars }),
         React.createElement("h2", null, "List of Cars"),
         React.createElement(ListCars, { cars: cars, resetState: resetState, newCar: true }),
