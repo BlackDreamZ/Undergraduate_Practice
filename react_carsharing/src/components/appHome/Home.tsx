@@ -36,7 +36,7 @@ const Home: React.FC = () => {
     };
 
     return (
-    <div style={{ marginTop: '20px' }}>
+    <div>
         <CarMap cars={cars}/>
         { sessionStorage.getItem('user') === 'admin' ? <div>
                 <h2>List of Cars</h2>

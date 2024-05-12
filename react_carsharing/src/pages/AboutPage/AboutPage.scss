@@ -1,0 +1,42 @@
+.about-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.company-image img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.company-history {
+  max-width: 800px;
+  text-align: justify;
+}
+
+.company-history h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.company-history p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-indent: 20px; /* Красивое начало абзаца */
+  line-height: 1.5; /* Улучшенный межстрочный интервал для лучшей читаемости */
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media screen and (max-width: 768px) {
+  .company-history {
+    max-width: 90%;
+  }
+}

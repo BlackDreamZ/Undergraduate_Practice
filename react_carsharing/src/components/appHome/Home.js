@@ -18,7 +18,7 @@ var Home = function () {
     var resetState = function () {
         getCars();
     };
-    return (React.createElement("div", { style: { marginTop: '20px' } },
+    return (React.createElement("div", null,
         React.createElement(CarMap, { cars: cars }),
         sessionStorage.getItem('user') === 'admin' ? React.createElement("div", null,
             React.createElement("h2", null, "List of Cars"),
