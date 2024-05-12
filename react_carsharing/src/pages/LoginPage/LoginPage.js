@@ -44,6 +44,8 @@ var LoginPage = function () {
     var _b = useState(''), phone_number = _b[0], setPhoneNumber = _b[1];
     var _c = useState(''), password = _c[0], setPassword = _c[1];
     var _d = useState(''), error = _d[0], setError = _d[1];
+    var _e = useState(false), registrationSuccess = _e[0], setRegistrationSuccess = _e[1]; // Состояние успешной регистрации
+    var _f = useState(''), registeredPhoneNumber = _f[0], setRegisteredPhoneNumber = _f[1]; // Состояние номера телефона при успешной регистрации
     var navigate = useNavigate(); // Инициализация
     var handleTabChange = function (tab) {
         setActiveTab(tab);
@@ -80,13 +82,10 @@ var LoginPage = function () {
                 case 3:
                     data = _a.sent();
                     console.log('Login response:', data);
-                    // Проверяем, есть ли в ответе поле 'error'
                     if (!data.error) {
-                        // Если ошибки нет, выполняем переход на страницу /rent
                         navigate('/rent');
                     }
                     else {
-                        // Если есть ошибка, выводим ее
                         setError("\u041E\u0448\u0438\u0431\u043A\u0430: " + data.error);
                     }
                     return [3 /*break*/, 5];
@@ -126,13 +125,12 @@ var LoginPage = function () {
                 case 3:
                     data = _a.sent();
                     console.log('Register response:', data);
-                    // Проверяем, есть ли в ответе поле 'error'
                     if (!data.error) {
-                        // Если ошибки нет, выполняем переход на страницу /rent
-                        navigate('/rent');
+                        setRegisteredPhoneNumber(phone_number); // Сохраняем номер телефона при успешной регистрации
+                        setRegistrationSuccess(true);
+                        setError('');
                     }
                     else {
-                        // Если есть ошибка, выводим ее
                         setError("\u041E\u0448\u0438\u0431\u043A\u0430: " + data.error);
                     }
                     return [3 /*break*/, 5];
@@ -152,6 +150,14 @@ var LoginPage = function () {
             React.createElement("button", { className: activeTab === 'login' ? 'active' : '', onClick: function () { return handleTabChange('login'); } }, "\u0412\u043E\u0439\u0442\u0438"),
             React.createElement("button", { className: activeTab === 'register' ? 'active' : '', onClick: function () { return handleTabChange('register'); } }, "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F")),
         error && React.createElement("div", { className: "error" }, error),
+        registrationSuccess && (React.createElement("div", { className: "overlay" },
+            React.createElement("div", { className: "success-popup" },
+                React.createElement("p", null,
+                    "\u0412\u044B \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u044B! ",
+                    React.createElement("br", null),
+                    "\u0412\u0430\u0448 \u043B\u043E\u0433\u0438\u043D: ",
+                    registeredPhoneNumber),
+                React.createElement("button", { type: "button", onClick: function () { navigate('/rent'); } }, "OK")))),
         activeTab === 'login' ? (React.createElement("form", { onSubmit: handleLoginSubmit, className: "auth-form" },
             React.createElement(InputMask, { mask: "+7 (999) 999-99-99", placeholder: "\u0422\u0435\u043B\u0435\u0444\u043E\u043D", value: phone_number, onChange: handlePhoneNumberChange }),
             React.createElement("input", { type: "password", placeholder: "\u041F\u0430\u0440\u043E\u043B\u044C", value: password, onChange: handlePasswordChange }),

@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import InputMask from 'react-input-mask';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.scss';
-import {API_URL} from "../../index";
+import { API_URL } from "../../index";
 
 const LoginPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
     const [phone_number, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [registrationSuccess, setRegistrationSuccess] = useState(false); // Состояние успешной регистрации
+    const [registeredPhoneNumber, setRegisteredPhoneNumber] = useState(''); // Состояние номера телефона при успешной регистрации
     const navigate = useNavigate(); // Инициализация
 
     const handleTabChange = (tab: 'login' | 'register') => {
@@ -40,12 +42,9 @@ const LoginPage: React.FC = () => {
             const data = await response.json();
             console.log('Login response:', data);
 
-            // Проверяем, есть ли в ответе поле 'error'
             if (!data.error) {
-                // Если ошибки нет, выполняем переход на страницу /rent
                 navigate('/rent');
             } else {
-                // Если есть ошибка, выводим ее
                 setError(`Ошибка: ${data.error}`);
             }
         } catch (error) {
@@ -72,12 +71,12 @@ const LoginPage: React.FC = () => {
             });
             const data = await response.json();
             console.log('Register response:', data);
-            // Проверяем, есть ли в ответе поле 'error'
+
             if (!data.error) {
-                // Если ошибки нет, выполняем переход на страницу /rent
-                navigate('/rent');
+                setRegisteredPhoneNumber(phone_number); // Сохраняем номер телефона при успешной регистрации
+                setRegistrationSuccess(true);
+                setError('');
             } else {
-                // Если есть ошибка, выводим ее
                 setError(`Ошибка: ${data.error}`);
             }
         } catch (error) {
@@ -96,6 +95,14 @@ const LoginPage: React.FC = () => {
                 <button className={activeTab === 'register' ? 'active' : ''} onClick={() => handleTabChange('register')}>Зарегистрироваться</button>
             </div>
             {error && <div className="error">{error}</div>}
+            {registrationSuccess && (
+                <div className="overlay">
+                    <div className="success-popup">
+                        <p>Вы успешно зарегистрированы! <br/>Ваш логин: {registeredPhoneNumber}</p>
+                        <button type="button" onClick={() => { navigate('/rent'); }}>OK</button>
+                    </div>
+                </div>
+            )}
             {activeTab === 'login' ? (
                 <form onSubmit={handleLoginSubmit} className="auth-form">
                     <InputMask
