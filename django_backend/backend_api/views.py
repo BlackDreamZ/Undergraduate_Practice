@@ -88,4 +88,11 @@ class LoginView(APIView):
         except User.DoesNotExist:
             return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
 
-        return Response({'message': 'User logged in successfully.', 'user_id': user.id})
+        # Формируем JSON-ответ с данными пользователя, включая баланс и статус
+        response_data = {
+            'message': 'User logged in successfully.',
+            'user_id': user.id,
+            'balance': user.balance,
+            'admin': user.admin
+        }
+        return Response(response_data)

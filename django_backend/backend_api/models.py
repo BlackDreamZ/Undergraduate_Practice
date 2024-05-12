@@ -18,6 +18,7 @@ class User(models.Model):
     password = models.CharField(max_length=128)
     is_registered = models.BooleanField(default=False)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    admin = models.BooleanField(default=False)
 
     def __str__(self):
         return self.phone_number

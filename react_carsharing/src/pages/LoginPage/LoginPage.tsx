@@ -6,7 +6,7 @@ import {API_URL} from "../../index";
 
 const LoginPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [phone_number, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate(); // Инициализация
@@ -33,7 +33,7 @@ const LoginPage: React.FC = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    phoneNumber,
+                    phone_number,
                     password,
                 }),
             });
@@ -58,13 +58,13 @@ const LoginPage: React.FC = () => {
     const handleRegisterSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const response = await fetch('${API_URL}/api/register/', {
+            const response = await fetch(`${API_URL}/api/register/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    phoneNumber,
+                    phone_number,
                     password,
                     status: 'user',
                     balance: 0,
@@ -72,14 +72,21 @@ const LoginPage: React.FC = () => {
             });
             const data = await response.json();
             console.log('Register response:', data);
-            navigate('/rent');
+            // Проверяем, есть ли в ответе поле 'error'
+            if (!data.error) {
+                // Если ошибки нет, выполняем переход на страницу /rent
+                navigate('/rent');
+            } else {
+                // Если есть ошибка, выводим ее
+                setError(`Ошибка: ${data.error}`);
+            }
         } catch (error) {
             console.error('Error registering:', error);
             setError('Ошибка при регистрации. Пожалуйста, попробуйте еще раз.');
         }
     };
 
-    const isPhoneNumberValid = phoneNumber.length === 11; // 11 символов для номера телефона с кодом страны
+    const isPhoneNumberValid = phone_number.length === 11; // 11 символов для номера телефона с кодом страны
     const isPasswordValid = password.length >= 6;
 
     return (
@@ -94,7 +101,7 @@ const LoginPage: React.FC = () => {
                     <InputMask
                         mask="+7 (999) 999-99-99"
                         placeholder="Телефон"
-                        value={phoneNumber}
+                        value={phone_number}
                         onChange={handlePhoneNumberChange}
                     />
                     <input type="password" placeholder="Пароль" value={password} onChange={handlePasswordChange} />
@@ -105,7 +112,7 @@ const LoginPage: React.FC = () => {
                     <InputMask
                         mask="+7 (999) 999-99-99"
                         placeholder="Телефон"
-                        value={phoneNumber}
+                        value={phone_number}
                         onChange={handlePhoneNumberChange}
                     />
                     <input type="password" placeholder="Пароль" value={password} onChange={handlePasswordChange} />
