@@ -43,6 +43,10 @@ const LoginPage: React.FC = () => {
             console.log('Login response:', data);
 
             if (!data.error) {
+                sessionStorage.removeItem('authenticatedPhoneNumber');
+                sessionStorage.removeItem('balance');
+                sessionStorage.setItem('authenticatedPhoneNumber', phone_number);
+                sessionStorage.setItem('balance', data.balance);
                 navigate('/rent');
             } else {
                 setError(`Ошибка: ${data.error}`);
@@ -73,7 +77,12 @@ const LoginPage: React.FC = () => {
             console.log('Register response:', data);
 
             if (!data.error) {
-                setRegisteredPhoneNumber(phone_number); // Сохраняем номер телефона при успешной регистрации
+                // Сохраняем авторизованный номер телефона и баланс
+                sessionStorage.removeItem('authenticatedPhoneNumber');
+                sessionStorage.removeItem('balance');
+                sessionStorage.setItem('authenticatedPhoneNumber', phone_number);
+                sessionStorage.setItem('balance', data.balance);
+                setRegisteredPhoneNumber(phone_number);
                 setRegistrationSuccess(true);
                 setError('');
             } else {
@@ -84,6 +93,7 @@ const LoginPage: React.FC = () => {
             setError('Ошибка при регистрации. Пожалуйста, попробуйте еще раз.');
         }
     };
+
 
     const isPhoneNumberValid = phone_number.length === 11; // 11 символов для номера телефона с кодом страны
     const isPasswordValid = password.length >= 6;

@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Header.scss';
 var Header = function () {
+    var location = useLocation();
     var _a = useState("Аренда автомобилей"), pageTitle = _a[0], setPageTitle = _a[1];
     useEffect(function () {
         var pathName = window.location.pathname;
@@ -18,7 +20,7 @@ var Header = function () {
             default:
                 setPageTitle("Аренда автомобилей");
         }
-    }, []);
+    }, [location.pathname]);
     var PC_version = window.innerWidth > 1023;
     var _b = useState(PC_version), menuOpen = _b[0], setMenuOpen = _b[1];
     var toggleMenu = function () {

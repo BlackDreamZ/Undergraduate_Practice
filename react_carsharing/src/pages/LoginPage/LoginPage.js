@@ -83,6 +83,10 @@ var LoginPage = function () {
                     data = _a.sent();
                     console.log('Login response:', data);
                     if (!data.error) {
+                        sessionStorage.removeItem('authenticatedPhoneNumber');
+                        sessionStorage.removeItem('balance');
+                        sessionStorage.setItem('authenticatedPhoneNumber', phone_number);
+                        sessionStorage.setItem('balance', data.balance);
                         navigate('/rent');
                     }
                     else {
@@ -126,7 +130,12 @@ var LoginPage = function () {
                     data = _a.sent();
                     console.log('Register response:', data);
                     if (!data.error) {
-                        setRegisteredPhoneNumber(phone_number); // Сохраняем номер телефона при успешной регистрации
+                        // Сохраняем авторизованный номер телефона и баланс
+                        sessionStorage.removeItem('authenticatedPhoneNumber');
+                        sessionStorage.removeItem('balance');
+                        sessionStorage.setItem('authenticatedPhoneNumber', phone_number);
+                        sessionStorage.setItem('balance', data.balance);
+                        setRegisteredPhoneNumber(phone_number);
                         setRegistrationSuccess(true);
                         setError('');
                     }
