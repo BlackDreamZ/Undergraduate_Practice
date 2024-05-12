@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import InputMask from 'react-input-mask';
 import './LoginPage.scss';
 
 const LoginPage: React.FC = () => {
@@ -11,8 +12,10 @@ const LoginPage: React.FC = () => {
     };
 
     const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPhoneNumber(event.target.value);
+        const value = event.target.value.replace(/\D/g, ''); // Оставляем только цифры
+        setPhoneNumber(value);
     };
+
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
@@ -30,6 +33,9 @@ const LoginPage: React.FC = () => {
         console.log('Registering with phone number:', phoneNumber, 'and password:', password);
     };
 
+    const isPhoneNumberValid = phoneNumber.length === 11; // 11 символов для номера телефона с кодом страны
+    const isPasswordValid = password.length >= 6;
+
     return (
         <div className="auth-page">
             <div className="tabs">
@@ -38,15 +44,25 @@ const LoginPage: React.FC = () => {
             </div>
             {activeTab === 'login' ? (
                 <form onSubmit={handleLoginSubmit} className="auth-form">
-                    <input type="text" placeholder="Телефон" value={phoneNumber} onChange={handlePhoneNumberChange} />
+                    <InputMask
+                        mask="+7 (999) 999-99-99"
+                        placeholder="Телефон"
+                        value={phoneNumber}
+                        onChange={handlePhoneNumberChange}
+                    />
                     <input type="password" placeholder="Пароль" value={password} onChange={handlePasswordChange} />
-                    <button type="submit">Войти</button>
+                    <button type="submit" disabled={!isPhoneNumberValid || !isPasswordValid}>Войти</button>
                 </form>
             ) : (
                 <form onSubmit={handleRegisterSubmit} className="auth-form">
-                    <input type="text" placeholder="Телефон" value={phoneNumber} onChange={handlePhoneNumberChange} />
+                    <InputMask
+                        mask="+7 (999) 999-99-99"
+                        placeholder="Телефон"
+                        value={phoneNumber}
+                        onChange={handlePhoneNumberChange}
+                    />
                     <input type="password" placeholder="Пароль" value={password} onChange={handlePasswordChange} />
-                    <button type="submit">Зарегистрироваться</button>
+                    <button type="submit" disabled={!isPhoneNumberValid || !isPasswordValid}>Зарегистрироваться</button>
                 </form>
             )}
         </div>
