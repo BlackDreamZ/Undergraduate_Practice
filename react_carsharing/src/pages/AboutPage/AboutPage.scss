@@ -40,3 +40,14 @@
     max-width: 90%;
   }
 }
+@media screen and (min-width: 1024px){
+  .about-page{
+    height: 80vh;
+  }
+  .about-content{
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}

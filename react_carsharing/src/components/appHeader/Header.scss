@@ -27,7 +27,7 @@
 .nav-item {
   list-style-type: none;
 }
-@media (min-width: 1024px){
+@media screen and (min-width: 1024px){
   .navbar-toggler {
     display: none;
   }
@@ -64,7 +64,7 @@
     cursor: pointer;
   }
 }
-@media (max-width: 1023px){
+@media screen and (max-width: 1023px){
   .navbar {
     height: 6vh;
   }
