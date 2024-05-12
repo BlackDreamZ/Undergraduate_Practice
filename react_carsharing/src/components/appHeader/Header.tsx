@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Header.scss';
 
 const Header: React.FC = () => {
+
+    const location = useLocation();
 
     const [pageTitle, setPageTitle] = useState("Аренда автомобилей");
 
@@ -21,7 +24,7 @@ const Header: React.FC = () => {
             default:
                 setPageTitle("Аренда автомобилей");
         }
-    }, []);
+    }, [location.pathname]);
 
     const PC_version = window.innerWidth > 1023;
 

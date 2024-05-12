@@ -14,8 +14,8 @@ import LoginPage from '../../pages/LoginPage/LoginPage.tsx';
 const App = () => {
     return (
         <Fragment>
-            <Header />
             <BrowserRouter>
+                <Header />
                 <Routes>
                     <Route exact path="/" element={<Home/>} />
                     <Route path="/rent" element={<Home/>} />
