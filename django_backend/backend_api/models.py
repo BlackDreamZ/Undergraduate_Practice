@@ -12,3 +12,12 @@ class Car(models.Model):
 
     def __str__(self):
         return self.name
+
+class User(models.Model):
+    phone_number = models.CharField(max_length=15)
+    password = models.CharField(max_length=128)
+    is_registered = models.BooleanField(default=False)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def __str__(self):
+        return self.phone_number

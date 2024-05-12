@@ -23,4 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', CarView.as_view(), name='Car_View'),
     path('api/car/<int:pk>/', CarDetailView.as_view(), name='car_detail'),
+    path('api/register/', RegisterView.as_view(), name='register'),
+    path('api/login/', LoginView.as_view(), name='login'),
 ]
