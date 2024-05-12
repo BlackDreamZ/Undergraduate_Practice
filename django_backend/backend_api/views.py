@@ -86,7 +86,7 @@ class LoginView(APIView):
         try:
             user = User.objects.get(phone_number=phone_number, password=password)
         except User.DoesNotExist:
-            return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'User not found. Please register in the application.'}, status=status.HTTP_404_NOT_FOUND)
 
         # Формируем JSON-ответ с данными пользователя, включая баланс и статус
         response_data = {

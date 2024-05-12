@@ -83,10 +83,12 @@ var LoginPage = function () {
                     data = _a.sent();
                     console.log('Login response:', data);
                     if (!data.error) {
+                        sessionStorage.removeItem('user');
                         sessionStorage.removeItem('authenticatedPhoneNumber');
                         sessionStorage.removeItem('balance');
                         sessionStorage.setItem('authenticatedPhoneNumber', phone_number);
                         sessionStorage.setItem('balance', data.balance);
+                        sessionStorage.setItem('user', data.admin);
                         navigate('/rent');
                     }
                     else {
@@ -133,8 +135,10 @@ var LoginPage = function () {
                         // Сохраняем авторизованный номер телефона и баланс
                         sessionStorage.removeItem('authenticatedPhoneNumber');
                         sessionStorage.removeItem('balance');
+                        sessionStorage.removeItem('user');
                         sessionStorage.setItem('authenticatedPhoneNumber', phone_number);
                         sessionStorage.setItem('balance', data.balance);
+                        sessionStorage.setItem('user', data.admin);
                         setRegisteredPhoneNumber(phone_number);
                         setRegistrationSuccess(true);
                         setError('');

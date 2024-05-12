@@ -43,10 +43,12 @@ const LoginPage: React.FC = () => {
             console.log('Login response:', data);
 
             if (!data.error) {
+                sessionStorage.removeItem('user');
                 sessionStorage.removeItem('authenticatedPhoneNumber');
                 sessionStorage.removeItem('balance');
                 sessionStorage.setItem('authenticatedPhoneNumber', phone_number);
                 sessionStorage.setItem('balance', data.balance);
+                sessionStorage.setItem('user', data.admin);
                 navigate('/rent');
             } else {
                 setError(`Ошибка: ${data.error}`);
@@ -80,8 +82,10 @@ const LoginPage: React.FC = () => {
                 // Сохраняем авторизованный номер телефона и баланс
                 sessionStorage.removeItem('authenticatedPhoneNumber');
                 sessionStorage.removeItem('balance');
+                sessionStorage.removeItem('user');
                 sessionStorage.setItem('authenticatedPhoneNumber', phone_number);
                 sessionStorage.setItem('balance', data.balance);
+                sessionStorage.setItem('user', data.admin);
                 setRegisteredPhoneNumber(phone_number);
                 setRegistrationSuccess(true);
                 setError('');
