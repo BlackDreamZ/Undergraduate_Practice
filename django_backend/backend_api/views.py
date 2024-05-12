@@ -35,12 +35,12 @@ class CarView(APIView):
             return Response(serializer.data)
 
     def my_view(request):
-        response = JsonResponse({'message': 'Hello, world!'})
+        response = JsonResponse({'message': ''})
         response['Access-Control-Allow-Origin'] = '*'  # Разрешить доступ с любого источника
         response['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'  # Разрешить определенные методы
         response['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization'  # Разрешить определенные заголовки
-        response['Access-Control-Allow-Credentials'] = 'true'  # Разрешить отправку куки (если необходимо)
-        response['X-CSRFToken'] = get_token(request)  # Установить CSRF-токен (если используется CSRF)
+        response['Access-Control-Allow-Credentials'] = 'true'  # Разрешить отправку куки
+        response['X-CSRFToken'] = get_token(request)  # Установить CSRF-токен
         return response
 
 class CarDetailView(APIView):

@@ -65,6 +65,14 @@
   }
 }
 @media (max-width: 1023px){
+  .navbar {
+    height: 6vh;
+  }
+  .navbar-header {
+    z-index: 10000;
+    position: relative;
+    background: white;
+  }
   .b1, .b2, .b3 {
     width: 36px;
     height: 5px;
