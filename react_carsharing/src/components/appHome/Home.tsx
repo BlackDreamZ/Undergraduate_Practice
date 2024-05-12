@@ -4,6 +4,7 @@ import ListCars from '../appListCars/ListCars';
 import axios from 'axios';
 import ModalCar from '../appModalCar/ModalCar';
 import CarMap from "../appCarMap/CarMap.jsx";
+import './Home.scss';
 
 interface Car {
     pk: number;
@@ -37,12 +38,25 @@ const Home: React.FC = () => {
     return (
     <div style={{ marginTop: '20px' }}>
         <CarMap cars={cars}/>
-            <h2>List of Cars</h2>
-            <ListCars cars={cars} resetState={resetState} newCar={true} />
-            <div>
-                <ModalCar create={true} resetState={resetState} newCar={true}  car={null}/>
+        { sessionStorage.getItem('user') === 'admin' ? <div>
+                <h2>List of Cars</h2>
+                <ListCars cars={cars} resetState={resetState} newCar={true} />
+                <div>
+                    <ModalCar create={true} resetState={resetState} newCar={true}  car={null}/>
+                </div>
             </div>
-        </div>
+        :
+            <div className="user-info-container">
+                {   sessionStorage.getItem('authenticatedPhoneNumber') ?
+                    (<div>
+                        <h2>Номер аккаунта: +{sessionStorage.getItem('authenticatedPhoneNumber')}</h2>
+                        <h2>Баланс аккаунта: {sessionStorage.getItem('balance')} рублей.</h2>
+                    </div>)
+                    :
+                    <h2>Вы не авторизованы</h2>
+                }
+            </div>}
+    </div>
     );
 };
 

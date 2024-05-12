@@ -1,0 +1,21 @@
+.user-info-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.user-info-container h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.user-info-container h2:first-child {
+  color: #007bff; /* Цвет для заголовка "Номер аккаунта" */
+}
+
+.user-info-container h2:last-child {
+  color: #28a745; /* Цвет для заголовка "Баланс аккаунта" */
+}

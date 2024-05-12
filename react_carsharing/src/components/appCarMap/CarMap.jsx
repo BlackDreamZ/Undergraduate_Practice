@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import carIconUrl from '../../assets/icons/icon-car.png'; // Загружаем изображение маркера
+import './CarMap.scss';
 
 // Добавляем в стили пользовательский маркер
 const customIcon = new Icon({
@@ -20,7 +21,7 @@ const handleRentClick = (car) => {
 const CarMap = ({ cars }) => {
 
     return (
-        <MapContainer style={{ height: '400px', width: '100%' }} zoom={16} center={[47.213945, 39.623114]}>
+        <MapContainer className='map-container' zoom={16} center={[47.213945, 39.623114]}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
