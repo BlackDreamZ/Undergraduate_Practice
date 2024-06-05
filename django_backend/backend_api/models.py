@@ -8,6 +8,8 @@ class Car(models.Model):
     photo = models.CharField("Photo", max_length=512)
     longitude = models.CharField("Longitude", max_length=240)
     latitude = models.CharField("Latitude", max_length=240)
+    fuel = models.DecimalField(max_digits=5,decimal_places=2,default=100)
+    price = models.DecimalField(max_digits=5,decimal_places=2,default=7)
     rented = models.BooleanField(default=False)
 
     def __str__(self):
