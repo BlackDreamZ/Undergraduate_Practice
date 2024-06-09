@@ -2,13 +2,16 @@ import * as React from 'react';
 import { useState } from 'react';
 
 interface Car {
+    Id: number;
     Name: string;
     Vin: string;
     CarNumber: string;
     Registration_Date: string;
-    photo: string;
-    longitude: string;
-    latitude: string;
+    Photo: string;
+    Longitude: string;
+    Latitude: string;
+    Fuel: number;
+    Price: number;
     Rented: boolean;
 }
 

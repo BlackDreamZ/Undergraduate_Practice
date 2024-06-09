@@ -72,6 +72,50 @@
   cursor: not-allowed; /* Изменение курсора на "недоступный" */
 }
 
+.checkbox-container {
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-container input[type="checkbox"] {
+  flex-shrink: 0; /* Запрет уменьшения размера */
+  margin-right: 15px; /* Небольшое расстояние между чекбоксом и текстом */
+  cursor: pointer;
+}
+
+.checkbox-container label {
+  flex-grow: 1; /* Занимает все доступное пространство, чтобы текст был на одной строке */
+}
+
+
+.checkbox-container input[type="checkbox"] {
+  display: inline-block;
+  position: relative;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"]:checked::after {
+  content: '\2714';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checkbox-container label {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .error {
   color: red;
 }
