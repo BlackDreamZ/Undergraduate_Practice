@@ -16,6 +16,7 @@ class CarView(APIView):
         cars = Car.objects.all()
         output = [
             {
+                "Id": car.id,
                 "Name": car.name,
                 "Vin": car.vin,
                 "CarNumber": car.carNumber,
@@ -23,6 +24,8 @@ class CarView(APIView):
                 "Photo": car.photo,
                 "Longitude": car.longitude,
                 "Latitude": car.latitude,
+                "Fuel": car.fuel,
+                "Price": car.price,
                 "Rented": car.rented
             } for car in cars
         ]

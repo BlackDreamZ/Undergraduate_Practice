@@ -7,14 +7,16 @@ import CarMap from "../appCarMap/CarMap.jsx";
 import './Home.scss';
 
 interface Car {
-    pk: number;
+    Id: number;
     Name: string;
     Vin: string;
     CarNumber: string;
     Registration_Date: string;
-    photo: string;
-    longitude: string;
-    latitude: string;
+    Photo: string;
+    Longitude: string;
+    Latitude: string;
+    Fuel: number;
+    Price: number;
     Rented: boolean;
 }
 

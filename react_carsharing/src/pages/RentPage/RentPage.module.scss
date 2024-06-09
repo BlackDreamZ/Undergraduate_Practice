@@ -1,0 +1,64 @@
+/* src/pages/RentPage/RentPage.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Добавлено для центрирования по вертикали */
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.time,
+.cost {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.waitingButton {
+    background-color: orange;
+}
+
+.endTripButton {
+    background-color: red;
+}
+
+.returnButton {
+    background-color: green;
+}
+
+.carImage {
+    max-width: 50%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .header {
+        font-size: 20px;
+    }
+
+    .time,
+    .cost {
+        font-size: 16px;
+    }
+
+    .button {
+        padding: 8px 16px;
+    }
+}

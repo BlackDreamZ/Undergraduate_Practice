@@ -1,55 +1,68 @@
-import React, { useState, useEffect } from 'react';
-var RentalComponent = function () {
-    var _a = useState(null), selectedCar = _a[0], setSelectedCar = _a[1];
-    var _b = useState(null), user = _b[0], setUser = _b[1];
-    var _c = useState(null), startTime = _c[0], setStartTime = _c[1];
-    var _d = useState(0), rentalCost = _d[0], setRentalCost = _d[1];
-    var _e = useState(false), modalVisible = _e[0], setModalVisible = _e[1];
-    var startRental = function (car) {
-        if (!car.rented) {
-            setSelectedCar(car);
-            setStartTime(new Date());
-            car.rented = true;
-            setModalVisible(true);
-        }
-        else {
-            alert('Этот автомобиль уже арендован.');
-        }
-    };
-    var calculateRentalCost = function () {
-        if (startTime) {
-            var endTime = new Date();
-            var duration = (endTime.getTime() - startTime.getTime()) / 60000;
-            setRentalCost(duration * 7.00);
-        }
-    };
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { CarContext } from '../../context/carContext';
+import styles from './RentPage.module.scss';
+var RentPage = function () {
+    var carId = useParams().carId;
+    var selectedCar = useContext(CarContext).selectedCar;
+    var _a = useState(null), startTime = _a[0], setStartTime = _a[1];
+    var _b = useState(new Date()), currentTime = _b[0], setCurrentTime = _b[1];
+    var _c = useState(false), isWaiting = _c[0], setIsWaiting = _c[1];
+    var _d = useState(false), isTripEnded = _d[0], setIsTripEnded = _d[1];
+    var _e = useState(0), costTrip = _e[0], setCostTrip = _e[1];
     useEffect(function () {
-        if (modalVisible) {
-            var interval_1 = setInterval(function () {
-                calculateRentalCost();
-            }, 60000);
-            return function () { return clearInterval(interval_1); };
-        }
-    }, [modalVisible, startTime]);
-    var completeRental = function () {
-        if (selectedCar && selectedCar.rented) {
-            calculateRentalCost();
-            selectedCar.rented = false;
-            setStartTime(null);
-            setModalVisible(false);
-            alert("\u0410\u0440\u0435\u043D\u0434\u0430 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0430. \u0421 \u0432\u0430\u0448\u0435\u0433\u043E \u0431\u0430\u043B\u0430\u043D\u0441\u0430 \u0441\u043F\u0438\u0441\u0430\u043D\u043E ".concat(rentalCost.toFixed(2), " \u0440\u0443\u0431."));
-        }
+        setStartTime(new Date());
+        var interval = setInterval(function () {
+            setCurrentTime(new Date());
+        }, 1000);
+        return function () { return clearInterval(interval); };
+    }, []);
+    var handleWaiting = function () {
+        setIsWaiting(!isWaiting);
     };
-    return (React.createElement("div", null, modalVisible && (React.createElement("div", { className: "modal" },
-        React.createElement("h2", null, "\u0422\u0435\u043A\u0443\u0449\u0430\u044F \u0430\u0440\u0435\u043D\u0434\u0430"),
-        React.createElement("p", null,
-            "\u0412\u0440\u0435\u043C\u044F \u0430\u0440\u0435\u043D\u0434\u044B: ",
-            startTime ? "".concat(((new Date().getTime() - startTime.getTime()) / 60000).toFixed(2), " \u043C\u0438\u043D\u0443\u0442") : 'Начните аренду'),
-        React.createElement("p", null,
-            "\u0422\u0435\u043A\u0443\u0449\u0430\u044F \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u0430\u0440\u0435\u043D\u0434\u044B: ",
-            rentalCost.toFixed(2),
-            " \u0440\u0443\u0431."),
-        React.createElement("button", { onClick: function () { return setModalVisible(false); } }, "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u0432 \u043E\u0436\u0438\u0434\u0430\u043D\u0438\u0435"),
-        React.createElement("button", { onClick: completeRental }, "\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C \u0430\u0440\u0435\u043D\u0434\u0443")))));
+    var handleEndTrip = function () {
+        setIsTripEnded(true);
+        setCostTrip(calculateCost());
+    };
+    var calculateTimeElapsed = function () {
+        if (!startTime)
+            return "0:00";
+        var totalSeconds = Math.floor((currentTime.getTime() - startTime.getTime() + 100) / 1000);
+        var minutes = Math.floor(totalSeconds / 60);
+        var seconds = totalSeconds % 60;
+        return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+    };
+    var calculateCost = function () {
+        if (!startTime)
+            return 0;
+        var totalSeconds = Math.floor((currentTime.getTime() - startTime.getTime() + 100) / 1000);
+        var rate = isWaiting ? selectedCar.Price / 2 : selectedCar.Price;
+        var cost = totalSeconds * rate / 60;
+        return +cost.toFixed(2);
+    };
+    if (!selectedCar) {
+        return React.createElement("div", null, "Car not found");
+    }
+    return (React.createElement("div", { className: styles.container }, isTripEnded ? (React.createElement(React.Fragment, null,
+        React.createElement("h1", { className: styles.header }, "\u041F\u043E\u0435\u0437\u0434\u043A\u0430 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0430"),
+        React.createElement("p", { className: styles.cost },
+            "\u041E\u0431\u0449\u0430\u044F \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u043F\u043E\u0435\u0437\u0434\u043A\u0438: ",
+            costTrip,
+            " \u0440\u0443\u0431\u043B\u0435\u0439"),
+        React.createElement(Link, { to: "/" },
+            React.createElement("button", { className: styles.button + " " + styles.returnButton }, "\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043D\u0430 \u0433\u043B\u0430\u0432\u043D\u0443\u044E \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443")))) : (React.createElement(React.Fragment, null,
+        React.createElement("h1", { className: styles.header },
+            "\u0422\u0435\u043A\u0443\u0449\u0430\u044F \u0430\u0440\u0435\u043D\u0434\u0430: ",
+            selectedCar.Name),
+        React.createElement("img", { src: selectedCar.Photo, alt: selectedCar.Name, className: styles.carImage }),
+        React.createElement("div", { className: styles.time },
+            "\u041F\u0440\u043E\u0448\u0435\u0434\u0448\u0435\u0435 \u0432\u0440\u0435\u043C\u044F: ",
+            calculateTimeElapsed()),
+        React.createElement("div", { className: styles.cost },
+            "\u0421\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u043F\u043E\u0435\u0437\u0434\u043A\u0438: ",
+            calculateCost(),
+            " \u0440\u0443\u0431\u043B\u0435\u0439"),
+        React.createElement("button", { onClick: handleWaiting, className: styles.button + " " + styles.waitingButton }, isWaiting ? 'Возобновить поездку' : 'Перейти в ожидание'),
+        React.createElement("button", { onClick: handleEndTrip, className: styles.button + " " + styles.endTripButton }, "\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C \u043F\u043E\u0435\u0437\u0434\u043A\u0443")))));
 };
-export default RentalComponent;
+export default RentPage;

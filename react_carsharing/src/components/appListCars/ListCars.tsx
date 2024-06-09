@@ -5,14 +5,16 @@ import AppRemoveCar from '../appRemoveCar/RemoveCar';
 import PhotoModal from '../appPhotoModal/PhotoModal';
 
 interface Car {
-    pk: number;
+    Id: number;
     Name: string;
     Vin: string;
     CarNumber: string;
     Registration_Date: string;
-    photo: string;
-    longitude: string;
-    latitude: string;
+    Photo: string;
+    Longitude: string;
+    Latitude: string;
+    Fuel: number;
+    Price: number;
     Rented: boolean;
 }
 
