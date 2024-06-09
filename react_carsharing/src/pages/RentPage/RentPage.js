@@ -46,7 +46,7 @@ var RentPage = function () {
     return (React.createElement("div", { className: styles.container }, isTripEnded ? (React.createElement(React.Fragment, null,
         React.createElement("h1", { className: styles.header }, "\u041F\u043E\u0435\u0437\u0434\u043A\u0430 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0430"),
         React.createElement("p", { className: styles.cost },
-            "\u041E\u0431\u0449\u0430\u044F \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u043F\u043E\u0435\u0437\u0434\u043A\u0438: ",
+            "\u0418\u0442\u043E\u0433\u043E\u0432\u0430\u044F \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u043F\u043E\u0435\u0437\u0434\u043A\u0438: ",
             costTrip,
             " \u0440\u0443\u0431\u043B\u0435\u0439"),
         React.createElement(Link, { to: "/" },

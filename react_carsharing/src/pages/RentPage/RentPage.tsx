@@ -59,7 +59,7 @@ const RentPage = () => {
             {isTripEnded ? (
                 <>
                     <h1 className={styles.header}>Поездка завершена</h1>
-                    <p className={styles.cost}>Общая стоимость поездки: {costTrip} рублей</p>
+                    <p className={styles.cost}>Итоговая стоимость поездки: {costTrip} рублей</p>
                     <Link to="/">
                         <button className={`${styles.button} ${styles.returnButton}`}>Вернуться на главную страницу</button>
                     </Link>
