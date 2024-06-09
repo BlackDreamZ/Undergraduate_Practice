@@ -66,7 +66,7 @@ const RentPage = () => {
                 </>
             ) : (
                 <>
-                    <h1 className={styles.header}>Текущая аренда: {selectedCar.Name}</h1>
+                    <h1 className={styles.header}>Текущая аренда: <br/>{selectedCar.Name}<br/>{selectedCar.CarNumber}</h1>
                     <img src={selectedCar.Photo} alt={selectedCar.Name} className={styles.carImage} />
                     <div className={styles.time}>Прошедшее время: {calculateTimeElapsed()}</div>
                     <div className={styles.cost}>Стоимость поездки: {calculateCost()} рублей</div>

@@ -18,6 +18,9 @@ var Home = function () {
     var resetState = function () {
         getCars();
     };
+    var handleTopUpBalance = function () {
+        console.log('Пополнение баланса');
+    };
     return (React.createElement("div", null,
         React.createElement(CarMap, { cars: cars }),
         sessionStorage.getItem('user') === 'admin' ? React.createElement("div", null,
@@ -34,7 +37,8 @@ var Home = function () {
                         React.createElement("h2", null,
                             "\u0411\u0430\u043B\u0430\u043D\u0441 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430: ",
                             sessionStorage.getItem('balance'),
-                            " \u0440\u0443\u0431\u043B\u0435\u0439.")))
+                            " \u0440\u0443\u0431\u043B\u0435\u0439."),
+                        React.createElement("button", { onClick: handleTopUpBalance, className: "top-up-button" }, "\u041F\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u044C \u0431\u0430\u043B\u0430\u043D\u0441")))
                     :
                         React.createElement("h2", null, "\u0412\u044B \u043D\u0435 \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u043E\u0432\u0430\u043D\u044B"))));
 };
