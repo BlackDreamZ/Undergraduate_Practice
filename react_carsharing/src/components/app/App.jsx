@@ -10,19 +10,23 @@ import Home from '../appHome/Home';
 import ContactsPage from '../../pages/ContactsPage/ContactsPage.tsx';
 import AboutPage from '../../pages/AboutPage/AboutPage.tsx';
 import LoginPage from '../../pages/LoginPage/LoginPage.tsx';
+import RentPage from '../../pages/RentPage/RentPage.tsx';
+import { CarProvider } from '../../context/carContext';
 
 const App = () => {
     return (
         <Fragment>
             <BrowserRouter>
-                <Header />
-                <Routes>
-                    <Route exact path="/" element={<Home/>} />
-                    <Route path="/rent" element={<Home/>} />
-                    <Route path="/contacts" element={<ContactsPage/>} />
-                    <Route path="/about" element={<AboutPage/>} />
-                    <Route path="/login" element={<LoginPage/>} />
-                </Routes>
+                <CarProvider>
+                    <Header />
+                    <Routes>
+                        <Route exact path="/" element={<Home/>} />
+                        <Route path="/rent" element={<RentPage/>} />
+                        <Route path="/contacts" element={<ContactsPage/>} />
+                        <Route path="/about" element={<AboutPage/>} />
+                        <Route path="/login" element={<LoginPage/>} />
+                    </Routes>
+                </CarProvider>
             </BrowserRouter>
         </Fragment>
     );

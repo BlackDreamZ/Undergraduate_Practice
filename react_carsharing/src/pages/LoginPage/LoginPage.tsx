@@ -11,6 +11,7 @@ const LoginPage: React.FC = () => {
     const [error, setError] = useState('');
     const [registrationSuccess, setRegistrationSuccess] = useState(false); // Состояние успешной регистрации
     const [registeredPhoneNumber, setRegisteredPhoneNumber] = useState(''); // Состояние номера телефона при успешной регистрации
+    const [termsAgreed, setTermsAgreed] = useState(false); // Состояние согласия с условиями
     const navigate = useNavigate(); // Инициализация
 
     const handleTabChange = (tab: 'login' | 'register') => {
@@ -47,7 +48,8 @@ const LoginPage: React.FC = () => {
                 sessionStorage.removeItem('balance');
                 sessionStorage.setItem('authenticatedPhoneNumber', phone_number);
                 sessionStorage.setItem('balance', data.balance);
-                navigate('/rent');
+                console.log(data.balance);
+                navigate('/');
             } else {
                 setError(`Ошибка: ${data.error}`);
             }
@@ -108,8 +110,9 @@ const LoginPage: React.FC = () => {
             {registrationSuccess && (
                 <div className="overlay">
                     <div className="success-popup">
-                        <p>Вы успешно зарегистрированы! <br/>Ваш логин: {registeredPhoneNumber}</p>
-                        <button type="button" onClick={() => { navigate('/rent'); }}>OK</button>
+                        <p>Вы успешно зарегистрированы! <br/>Ваш логин: {registeredPhoneNumber} <br/>
+                        Необходимо предоставить паспортные данные и водительское удостоверение в виде фотографий на почту <a href="mailto:register@rentalcar.ru">register@rentalcar.ru</a> для получения доступа к аренде автомобилей.<br/>Вы будете перенаправлены в почтовый клиент.</p>
+                        <button type="button" onClick={() => { navigate('/'); }}>OK</button>
                     </div>
                 </div>
             )}
@@ -133,7 +136,16 @@ const LoginPage: React.FC = () => {
                         onChange={handlePhoneNumberChange}
                     />
                     <input type="password" placeholder="Пароль" value={password} onChange={handlePasswordChange} />
-                    <button type="submit" disabled={!isPhoneNumberValid || !isPasswordValid}>Зарегистрироваться</button>
+                    <div className="checkbox-container">
+                        <input
+                            type="checkbox"
+                            checked={termsAgreed}
+                            onChange={(e) => setTermsAgreed(e.target.checked)}
+                            id="termsCheckbox"
+                        />
+                        <label htmlFor="termsCheckbox">Я согласен с условиями о <a href='#'>хранении пользовательских данных</a>, <a href='#'>правилами сервиса</a>, <a href='#'>договором аренды</a></label>
+                    </div>
+                    <button type="submit" disabled={!isPhoneNumberValid || !isPasswordValid || !termsAgreed}>Зарегистрироваться</button>
                 </form>
             )}
         </div>

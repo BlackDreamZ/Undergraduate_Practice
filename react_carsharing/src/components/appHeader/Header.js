@@ -37,7 +37,7 @@ var Header = function () {
             React.createElement("div", { className: "collapse navbar-collapse " + (menuOpen ? 'show' : '') },
                 React.createElement("ul", { className: "navbar-nav ms-auto mb-2 mb-lg-0" },
                     React.createElement("li", { className: "nav-item" },
-                        React.createElement("a", { className: "nav-link", href: "/rent" }, "\u0410\u0440\u0435\u043D\u0434\u0430")),
+                        React.createElement("a", { className: "nav-link", href: "/" }, "\u0410\u0440\u0435\u043D\u0434\u0430")),
                     React.createElement("li", { className: "nav-item" },
                         React.createElement("a", { className: "nav-link", href: "/contacts" }, "\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B")),
                     React.createElement("li", { className: "nav-item" },

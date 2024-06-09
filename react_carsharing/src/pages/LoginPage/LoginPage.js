@@ -46,6 +46,7 @@ var LoginPage = function () {
     var _d = useState(''), error = _d[0], setError = _d[1];
     var _e = useState(false), registrationSuccess = _e[0], setRegistrationSuccess = _e[1]; // Состояние успешной регистрации
     var _f = useState(''), registeredPhoneNumber = _f[0], setRegisteredPhoneNumber = _f[1]; // Состояние номера телефона при успешной регистрации
+    var _g = useState(false), termsAgreed = _g[0], setTermsAgreed = _g[1]; // Состояние согласия с условиями
     var navigate = useNavigate(); // Инициализация
     var handleTabChange = function (tab) {
         setActiveTab(tab);
@@ -87,7 +88,8 @@ var LoginPage = function () {
                         sessionStorage.removeItem('balance');
                         sessionStorage.setItem('authenticatedPhoneNumber', phone_number);
                         sessionStorage.setItem('balance', data.balance);
-                        navigate('/rent');
+                        console.log(data.balance);
+                        navigate('/');
                     }
                     else {
                         setError("\u041E\u0448\u0438\u0431\u043A\u0430: " + data.error);
@@ -165,14 +167,30 @@ var LoginPage = function () {
                     "\u0412\u044B \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u044B! ",
                     React.createElement("br", null),
                     "\u0412\u0430\u0448 \u043B\u043E\u0433\u0438\u043D: ",
-                    registeredPhoneNumber),
-                React.createElement("button", { type: "button", onClick: function () { navigate('/rent'); } }, "OK")))),
+                    registeredPhoneNumber,
+                    " ",
+                    React.createElement("br", null),
+                    "\u041D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043F\u0440\u0435\u0434\u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043F\u0430\u0441\u043F\u043E\u0440\u0442\u043D\u044B\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u0438 \u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044C\u0441\u043A\u043E\u0435 \u0443\u0434\u043E\u0441\u0442\u043E\u0432\u0435\u0440\u0435\u043D\u0438\u0435 \u0432 \u0432\u0438\u0434\u0435 \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u0439 \u043D\u0430 \u043F\u043E\u0447\u0442\u0443 ",
+                    React.createElement("a", { href: "mailto:register@rentalcar.ru" }, "register@rentalcar.ru"),
+                    " \u0434\u043B\u044F \u043F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u044F \u0434\u043E\u0441\u0442\u0443\u043F\u0430 \u043A \u0430\u0440\u0435\u043D\u0434\u0435 \u0430\u0432\u0442\u043E\u043C\u043E\u0431\u0438\u043B\u0435\u0439.",
+                    React.createElement("br", null),
+                    "\u0412\u044B \u0431\u0443\u0434\u0435\u0442\u0435 \u043F\u0435\u0440\u0435\u043D\u0430\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u044B \u0432 \u043F\u043E\u0447\u0442\u043E\u0432\u044B\u0439 \u043A\u043B\u0438\u0435\u043D\u0442."),
+                React.createElement("button", { type: "button", onClick: function () { navigate('/'); } }, "OK")))),
         activeTab === 'login' ? (React.createElement("form", { onSubmit: handleLoginSubmit, className: "auth-form" },
             React.createElement(InputMask, { mask: "+7 (999) 999-99-99", placeholder: "\u0422\u0435\u043B\u0435\u0444\u043E\u043D", value: phone_number, onChange: handlePhoneNumberChange }),
             React.createElement("input", { type: "password", placeholder: "\u041F\u0430\u0440\u043E\u043B\u044C", value: password, onChange: handlePasswordChange }),
             React.createElement("button", { type: "submit", disabled: !isPhoneNumberValid || !isPasswordValid }, "\u0412\u043E\u0439\u0442\u0438"))) : (React.createElement("form", { onSubmit: handleRegisterSubmit, className: "auth-form" },
             React.createElement(InputMask, { mask: "+7 (999) 999-99-99", placeholder: "\u0422\u0435\u043B\u0435\u0444\u043E\u043D", value: phone_number, onChange: handlePhoneNumberChange }),
             React.createElement("input", { type: "password", placeholder: "\u041F\u0430\u0440\u043E\u043B\u044C", value: password, onChange: handlePasswordChange }),
-            React.createElement("button", { type: "submit", disabled: !isPhoneNumberValid || !isPasswordValid }, "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F")))));
+            React.createElement("div", { className: "checkbox-container" },
+                React.createElement("input", { type: "checkbox", checked: termsAgreed, onChange: function (e) { return setTermsAgreed(e.target.checked); }, id: "termsCheckbox" }),
+                React.createElement("label", { htmlFor: "termsCheckbox" },
+                    "\u042F \u0441\u043E\u0433\u043B\u0430\u0441\u0435\u043D \u0441 \u0443\u0441\u043B\u043E\u0432\u0438\u044F\u043C\u0438 \u043E ",
+                    React.createElement("a", { href: '#' }, "\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0438 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0445 \u0434\u0430\u043D\u043D\u044B\u0445"),
+                    ", ",
+                    React.createElement("a", { href: '#' }, "\u043F\u0440\u0430\u0432\u0438\u043B\u0430\u043C\u0438 \u0441\u0435\u0440\u0432\u0438\u0441\u0430"),
+                    ", ",
+                    React.createElement("a", { href: '#' }, "\u0434\u043E\u0433\u043E\u0432\u043E\u0440\u043E\u043C \u0430\u0440\u0435\u043D\u0434\u044B"))),
+            React.createElement("button", { type: "submit", disabled: !isPhoneNumberValid || !isPasswordValid || !termsAgreed }, "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F")))));
 };
 export default LoginPage;
